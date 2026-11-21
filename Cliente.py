@@ -13,13 +13,14 @@ class Cliente:
             )
         if not nombre or not str(nombre).strip():
             raise ParametroServicioInvalidoError("El nombre no puede estar vacío.")
-        if not correo or not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", str(correo)):
+        correo = str(correo).strip() if correo is not None else ""
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", correo):
             raise ParametroServicioInvalidoError(
                 "El correo electrónico no tiene un formato válido."
             )
         self._identificacion = str(identificacion).strip()
         self._nombre = str(nombre).strip()
-        self._correo = str(correo).strip()
+        self._correo = correo
 
     @property
     def identificacion(self) -> str:
